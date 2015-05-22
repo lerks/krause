@@ -35,7 +35,7 @@ Mais, n'étant pas plus inspirés par ce modèle, nous avons donc décidé d'aba
 
 \section{Modèle de Krause pour la dynamique d'opinion}
 
-Dans le modèle de Krause on étudie des agents (normalement un nombre fini, mais ils existent des généralisations à un nombre infini, dénombrable ou continu) qui sont caractérisés par leur opinion, qui est une valeur dans un certain espace métrique (normalement un intervalle borné de $\mathbb{R}$). Le système évolue à temps discret. A chaque étape tous les agents se déplacent en même temps vers la moyenne des positions des agents qui leur sont proches, c'est-à-dire qui ont une distance inférieure à 1. Formellement, dans le cas le plus simple d'un nombre fini d'opinions réelles, on pourrait dire que
+Dans le modèle de Krause on étudie des agents (normalement un nombre fini, mais ils existent des généralisations à un nombre infini, dénombrable ou continu) qui sont caractérisés par leur opinion, qui est une valeur dans un certain espace métrique (normalement un intervalle borné de $\mathbb{R}$). Le système évolue à temps discret. À chaque étape tous les agents se déplacent en même temps vers la moyenne des positions des agents qui leur sont proches, c'est-à-dire qui ont une distance inférieure à 1. Formellement, dans le cas le plus simple d'un nombre fini d'opinions réelles, on pourrait dire que
 \begin{equation}
 x_i^{(t+1)} = \frac{1}{|N_d^{(t)}(i)|} \sum_{j \in N_d^{(t)}(i)} x_j^{(t)}
 \end{equation}
@@ -88,25 +88,25 @@ En modifiant légèrement et aléatoirement la position initiale des agents par 
 
 Nous avons de plus constaté qu'en choisissant les positions initiales des agents indépendamment et uniformément sur le cercle, on obtenait nettement plus fréquemment une convergence standard.
 
-Pour continuer a nous familiariser avec le modèle, cette fois d'un point de vue théorique, nous avons essayé de démontrer un résultat ``préliminaire'' : l'ensemble des situations initiales qui conduisent à une convergence non standard n'est pas de mesure nulle (en supposant la distribution de probabilité obtenue en tirant uniformément et indépendamment chaque agent). Cela nous a garanti que les situations que nous voulions analyser ne sont pas négligeables.
+Pour continuer a nous familiariser avec le modèle, cette fois d'un point de vue théorique, nous avons essayé de démontrer un résultat ``préliminaire'' : l'ensemble des situations initiales qui conduisent à une convergence non standard n'est pas de mesure nulle (en supposant la distribution de probabilité obtenue en tirant uniformément et indépendamment chaque agent). Cela nous a confirmé ce que nous avions vu expérimentalement : les situations que nous voulions analyser ne sont pas négligeables.
 
 \begin{theorem}
 \label{convergence-non-standard}
 Considérons $n$ agents placés sur le cercle de rayon 1 et soit $d$ la distance d'influence. La position de l'agent $i$ est $x_i = r_i + b_i$ où $r_i = \frac{i}{n} 2 \pi$ et $b_i \in [-\epsilon, +\epsilon]$. Alors la convergence sera non standard pour un $\epsilon$ suffisamment petit.
 \end{theorem}
 
-Nous avons supposé que le bruit n'arrive pas à changer les relations d'influence entre les agents. On peut formaliser cela comme une contrainte sur $\epsilon$ : pour aucun $k$ on peut avoir $\frac{k}{n} 2 \pi - \epsilon < d < \frac{k}{n} 2 \pi + \epsilon$.
+Nous avons supposé que le bruit n'arrive pas à changer les relations d'influence entre les agents. On peut formaliser cela comme une contrainte sur $\epsilon$ : pour aucun $k \ge 1$ on peut avoir $\frac{k}{n} 2 \pi - \epsilon < d < \frac{k}{n} 2 \pi + \epsilon$.
 
-Après des essais numériques nous nous sommes convaincus que une situation de ce type converge vers une distribution équidistante, où l'agent $i$ est à la position $x_i + \bar b$, avec $\bar b = \frac{1}{n} \sum_{j=1}^n b_j$. Nous avons trouvé une preuve de ce résultat on utilisant les chaînes de Markov :
+Après des essais numériques nous nous sommes convaincus que une situation de ce type converge vers une distribution équidistante, où l'agent $i$ est à la position $r_i + \bar b$, avec $\bar b = \frac{1}{n} \sum_{j=1}^n b_j$. Nous avons trouvé une preuve de ce résultat on utilisant les chaînes de Markov :
 
 \begin{proof}
 A toute étape chaque agent est influencé par autant d'agents à gauche que à droite. Soit $k$ ce nombre. Donc à la deuxième étape
 \begin{equation*}
 \begin{split}
-x'_i &= x_i + \frac{1}{2k+1} \left( \sum_{j=1}^k (x_{i-j} - x_i) + \sum_{j=1}^k (x_{i+j} - x_i) \right) \\
-     &= r_i + b_i + \frac{1}{2k+1} \left( \sum_{j=1}^k (r_{i-j} + b_{i-j} - r_i - b_i) + \sum_{j=1}^k (r_{i+j} + b_{i+j} - r_i - b_i) \right) \\
-     &= r_i + b_i + \frac{1}{2k+1} \left( \sum_{j=1}^k (r_i - \frac{j}{n}2 \pi + b_{i-j} - r_i - b_i) + \sum_{j=1}^k (r_i + \frac{j}{n}2 \pi + b_{i+j} - r_i - b_i) \right) \\
-     &= r_i + b_i + \frac{1}{2k+1} \left( \sum_{j=1}^k (b_{i-j} - b_i) + \sum_{j=1}^k (b_{i+j} - b_i) \right) \\
+x'_i &= \frac{1}{2k+1} \left( \sum_{j=1}^k x_{i-j} + x_i + \sum_{j=1}^k x_{i+j} \right) \\
+     &= \frac{1}{2k+1} \left( \sum_{j=1}^k (r_{i-j} + b_{i-j}) + r_i + b_i + \sum_{j=1}^k (r_{i+j} + b_{i+j}) \right) \\
+     &= \frac{1}{2k+1} \left( \sum_{j=1}^k (r_i - \frac{j}{n}2 \pi + b_{i-j}) + r_i + b_i + \sum_{j=1}^k (r_i + \frac{j}{n}2 \pi + b_{i+j}) \right) \\
+     &= \frac{1}{2k+1} \left( \sum_{j=1}^k (r_i + b_{i-j}) + r_i + b_i + \sum_{j=1}^k (r_i + b_{i+j}) \right) \\
      &= r_i + \frac{1}{2k+1} \left( \sum_{j=1}^k b_{i-j} + b_i + \sum_{j=1}^k b_{i+j} \right) \\
 \end{split}
 \end{equation*}
