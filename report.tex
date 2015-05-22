@@ -9,7 +9,9 @@
 \usepackage{xfrac}
 \usepackage{graphicx}
 
+\usepackage[T1]{fontenc}
 \usepackage{type1cm}
+\usepackage{lmodern}
 
 \newtheorem{theorem}{Théorème}
 
@@ -44,7 +46,7 @@ Cette équation vise à modéliser le phénomène d'influence suivant : un agent
 
 \subsection{Aperçu de notre travail théorique}
 
-Pour nous donner des suggestions, le professeur nous a envoyé une présenta\-tion qu'il avait fait pour synthétiser et commenter l'article ``On Krause’s multi-agent consensus model with state-dependent connectivity'' de Vincent D. Blondel, Julien M. Hendrickx et John N. Tsitsiklis. Le thème nous intéressait et nous avons donc décidé de lire l'article original en entier pour mieux comprendre le modèle, les problématiques et les approches proposées.
+Pour nous donner des suggestions, le professeur nous a envoyé une présentation qu'il avait fait pour synthétiser et commenter l'article ``On Krause’s multi-agent consensus model with state-dependent connectivity'' de Vincent D. Blondel, Julien M. Hendrickx et John N. Tsitsiklis. Le thème nous intéressait et nous avons donc décidé de lire l'article original en entier pour mieux comprendre le modèle, les problématiques et les approches proposées.
 
 Un premier aspect que nous avons étudié a été la distribution des instants auxquels deux groupes d'agents s'unifient. Pour cela nous avons écrit un simulateur spécialisé et optimisé pour exécuter un grand nombre de fois des simulations à partir d'une situation aléatoire et obtenir des données statistiques. En représentant ces graphiques nous n'avons trouvé aucun comportement facilement descriptible et donc nous avons abandonné cette piste.
 
@@ -146,7 +148,7 @@ Certaines de ces fonctions faisaient converger très rapidement (ex : créneau v
 \item affichage logarithmique : l'abscisse est $\log(t)$, c'est à dire qu'une valeur au temps $t$ est affiché sur le pixel d'abscisse $\log(t)$.
 \end{enumerate}
 
-Face à la rapidité de la convergence de certains modèles, nous avons implé\-men\-té l'inertie : plus cette inertie est importante, moins l'opinion de la personne change. C'est à dire que la personne prend en compte son opinion avec un coeff proportionnel à l'inertie. Cela permet de ralentir la convergence et d'obtenir des courbes plus jolies.
+Face à la rapidité de la convergence de certains modèles, nous avons implémenté l'inertie : plus cette inertie est importante, moins l'opinion de la personne change. C'est à dire que la personne prend en compte son opinion avec un coeff proportionnel à l'inertie. Cela permet de ralentir la convergence et d'obtenir des courbes plus jolies.
 Nous avons aussi essayé une version où l'inertie change selon les personnes.
 
 Nous avons ensuite ajouté du bruit, ie une personne a une opinion qui monte ou descend aléatoirement (en plus du changement d'opinion dû aux autres personnes) à chaque unité de temps. Nous avons mis un bruit à peu près gaussien. Ainsi nous obtenons selon les modèles une ou plusieures opinions principales qui bougent légèrement, qui sont larges avec un gros bruit et fines avec un petit bruit. Celles-ci se rejoignent parfois. De plus avec un bruit suffisament fort certaines personnes sortent des idées principales. Avec un bruit très fort on observe plus rien; et entre les deux on observe des idées principales qui bougent beaucoup, se rejoignent, se divisent, des trous d'opinions qui se créent puis disparaisent : c'est assez proche de la réalité.
