@@ -25,22 +25,22 @@ Au tout début nous étions intéressés par le problème de swarm autohealing, 
 
 Le défi principal de ce problème était que c’était à nous de concevoir et proposer une formalisation appropriée. Nous avons donc commencé avec le cas le plus simple, où les agents ont information complète sur l’état de tout le système, sur le profit et le coût dans les différents régions de l'espace, sur le mouvement futur des autres agents. Nous avons étudié les cas d'un espace fini et d'un espace continu. En fait, la décision optimale des agents voisins pendant le vote était facile à déterminer : il fallait simplement estimer le gain futur de l'agent et le comparer avec le coût du sauvetage. Le calcul consiste en la résolution d'un système linéaire dans le cas discret et d'une équation intégrale dans le cas continu.
 
-Généraliser le problème à une modélisation où les agents ne disposent que d'une information partielle s'est révélé beaucoup plus ardu. Cependant, cette situation est au centre de l'intérêt du problème de swarm autohealing. En effet, les agents n'ont accès qu'à une information locale, ce qui fait qu'ils ne connaissent pas l'ensemble du système - ni son évolution à fortiori. Par ailleurs, c'est pour cela que les prises de décision des différents agents diffèrent : ceci constitue tout l'intérêt de la phase de vote des agents. Il était donc essentiel que notre modélisation du problème prenne en compte la localité de l'information. 
+Généraliser le problème à une modélisation où les agents ne disposent que d'une information partielle s'est révélé beaucoup plus ardu. Cependant, cette situation est au centre de l'intérêt du problème de swarm autohealing. En effet, les agents n'ont accès qu'à une information locale, ce qui fait qu'ils ne connaissent pas l'ensemble du système - ni son évolution à fortiori. Par ailleurs, c'est pour cela que les prises de décision des différents agents diffèrent : ceci constitue tout l'intérêt de la phase de vote des agents. Il était donc essentiel que notre modélisation du problème prenne en compte la localité de l'information.
 
-Cependant, nous n'avons abouti à aucun résultat d'intérêt avec ce modèle. Il nous a semblé que le mieux que nous puissions faire était de procéder comme dans le cas à information totale, mais en acceptant le manque d'information qui engendre une part d'aléatoire dans le problème. Pour être précis, un agent doit estimer les informations qui lui manquent, pour ensuite prévoir si il est avantageux de sauver un agent corrompu ou non. 
+Cependant, nous n'avons abouti à aucun résultat d'intérêt avec ce modèle. Il nous a semblé que le mieux que nous puissions faire était de procéder comme dans le cas à information totale, mais en acceptant le manque d'information qui engendre une part d'aléatoire dans le problème. Pour être précis, un agent doit estimer les informations qui lui manquent, pour ensuite prévoir si il est avantageux de sauver un agent corrompu ou non.
 
-Remarquons cependant que puisque ce mode de prise de décision est dangereux, puisque une petite erreur dans l'estimation des paramètres inconnus peut avoir de grandes conséquences : tuer plutôt que sauver. Pour y remédier, on peut rendre les décisions des agents aléatoires : tuer avec probabilité $p$, sauver avec probabilité $1-p$, où $p$ dépend des paramètres (estimés) du système. Cela permet d'éviter un ``effet seuil'' où de petites variations des paramètres auraient de grandes conséquences.  
+Remarquons cependant que puisque ce mode de prise de décision est dangereux, puisque une petite erreur dans l'estimation des paramètres inconnus peut avoir de grandes conséquences : tuer plutôt que sauver. Pour y remédier, on peut rendre les décisions des agents aléatoires : tuer avec probabilité $p$, sauver avec probabilité $1-p$, où $p$ dépend des paramètres (estimés) du système. Cela permet d'éviter un ``effet seuil'' où de petites variations des paramètres auraient de grandes conséquences.
 
 Mais, n'étant pas plus inspirés par ce modèle, nous avons donc décidé d'abandonner cette direction et de nous dédier à un problème différente.
 
 \section{Modèle de Krause pour la dynamique d'opinion}
 
-Dans le modèle de Krause on étudie des agents (normalement un nombre fini, mais ils existent des généralisations à un nombre infini, dénombrable ou continu) qui sont caractérisés par leur opinion, qui est une valeur dans un certain espace métrique (normalement un intervalle borné de $\mathbb{R}$). Le système évolue à temps discret. A chaque étape tous les agents se déplacent en même temps vers la moyenne des positions des agents qui leur sont proches, c'est-à-dire qui ont une distance inférieure à 1. Formellement, dans le cas le plus simple d'un nombre fini d'opinions réelles, on pourrait dire que 
+Dans le modèle de Krause on étudie des agents (normalement un nombre fini, mais ils existent des généralisations à un nombre infini, dénombrable ou continu) qui sont caractérisés par leur opinion, qui est une valeur dans un certain espace métrique (normalement un intervalle borné de $\mathbb{R}$). Le système évolue à temps discret. A chaque étape tous les agents se déplacent en même temps vers la moyenne des positions des agents qui leur sont proches, c'est-à-dire qui ont une distance inférieure à 1. Formellement, dans le cas le plus simple d'un nombre fini d'opinions réelles, on pourrait dire que
 \begin{equation}
 x_i^{(t+1)} = \frac{1}{|N_d^{(t)}(i)|} \sum_{j \in N_d^{(t)}(i)} x_j^{(t)}
 \end{equation}
 où $N_d^{(t)}(i) = \{j \text{ t.q. } |x_j^{(t)} - x_i^{(t)}| < d\}$.
-Cette équation vise à modéliser le phénomène d'influence suivant : un agent est influencé par les opinions des autres agents, sous réserve qu'ils aient une opinion pas trop différente de la sienne. Autrement dit, nous sommes hermétiques aux gens qui pensent très différemment de nous. En revanche, lorsque quelqu'un pense légèrement différemment de nous, nous modifions notre opinion en prenant en compte la sienne. 
+Cette équation vise à modéliser le phénomène d'influence suivant : un agent est influencé par les opinions des autres agents, sous réserve qu'ils aient une opinion pas trop différente de la sienne. Autrement dit, nous sommes hermétiques aux gens qui pensent très différemment de nous. En revanche, lorsque quelqu'un pense légèrement différemment de nous, nous modifions notre opinion en prenant en compte la sienne.
 
 \subsection{Aperçu de notre travail théorique}
 
@@ -50,7 +50,7 @@ Un premier aspect que nous avons étudié a été la distribution des instants a
 
 Cependant, nous avons trouvé dans l'article de nouveaux problèmes ouverts, qui viennent compléter ceux que le professeur a écrit dans sa présentation. En particulier dans une section de commentaire les auteurs disent qu'un résultat qu'il venaient de prouver (la convergence au clusters séparés d'au moins $d$) n'est pas vrai dans n'importe quel espace. Ils donnaient comme contre-exemple le cas d'agents placés sur le cercle et ils disaient que dans ce cas, même la simple convergence n’était pas prouvée. Ainsi nous avons décidé de travailler sur ce problème.
 
-Au tout début nous avons écrit un simulateur en Python, pour nous aider à mieux comprendre les différentes situations qui peuvent se présenter. Nous avons distingué deux modes de convergence : 
+Au tout début nous avons écrit un simulateur en Python, pour nous aider à mieux comprendre les différentes situations qui peuvent se présenter. Nous avons distingué deux modes de convergence :
 
 \begin{itemize}
 \item Si lors qu'un des étapes de la convergence, il se forme un ``trou'' de taille au moins $d$ entre deux agents successifs, alors ce trou ne peut plus se réduire. Puisque les deux agents successifs ne sont plus en influence, tout se passe alors comme si on était ramené au cas réel, en ``coupant'' le cercle au niveau du trou. Le phénomène est alors connu, et on a convergence vers des clusters séparés par une distance au moins $d$. On donne dans les figurs \ref{randombefore}, \ref{random2} et \ref{random5} une illustration de ce phénomène, sur le cercle de rayon $1$, avec $d = 1$.
@@ -70,8 +70,8 @@ Au tout début nous avons écrit un simulateur en Python, pour nous aider à mie
 \label{random5}
 \end{figure}
 
-\item Cependant, il est possible que les couples d'agents successifs ne se séparent jamais d'une distance de plus de $d$. Par exemple, prenons $n$ suffisamment grand, et plaçons des $n$ agents sur les racines $n$-ièmes de l'unité. Chaque agents sera influencé par ses voisins, mais les influences se compensent exactement, de sorte que la distribution est stable. Nous avons ici ce que nous appelons une convergence non standard, c'est-à-dire que des agents restent sous influence mutuelle, bien qu'ils ne convergent pas vers la même position. 
-En modifiant légèrement et aléatoirement la position initiale des agents par rapport à cette distribution, nous avons constaté numériquement que cette distribution est stable. Nous montrons une de ces simulations numériques dans les figures \ref{racinesbefore} et \ref{racines1000}, ainsi qu'une preuve théorique de ce résultat dans le théorème \ref{convergence-non-standard}. 
+\item Cependant, il est possible que les couples d'agents successifs ne se séparent jamais d'une distance de plus de $d$. Par exemple, prenons $n$ suffisamment grand, et plaçons des $n$ agents sur les racines $n$-ièmes de l'unité. Chaque agents sera influencé par ses voisins, mais les influences se compensent exactement, de sorte que la distribution est stable. Nous avons ici ce que nous appelons une convergence non standard, c'est-à-dire que des agents restent sous influence mutuelle, bien qu'ils ne convergent pas vers la même position.
+En modifiant légèrement et aléatoirement la position initiale des agents par rapport à cette distribution, nous avons constaté numériquement que cette distribution est stable. Nous montrons une de ces simulations numériques dans les figures \ref{racinesbefore} et \ref{racines1000}, ainsi qu'une preuve théorique de ce résultat dans le théorème \ref{convergence-non-standard}.
 
 \begin{figure}
 \center
@@ -86,13 +86,13 @@ En modifiant légèrement et aléatoirement la position initiale des agents par 
 
 \end{itemize}
 
-Nous avons de plus constaté qu'en choisissant les positions initiales des agents indépendamment et uniformément sur le cercle, on obtenait nettement plus fréquemment une convergence standard. 
+Nous avons de plus constaté qu'en choisissant les positions initiales des agents indépendamment et uniformément sur le cercle, on obtenait nettement plus fréquemment une convergence standard.
 
 Pour continuer a nous familiariser avec le modèle, cette fois d'un point de vue théorique, nous avons essayé de démontrer un résultat ``préliminaire'' : l'ensemble des situations initiales qui conduisent à une convergence non standard n'est pas de mesure nulle (en supposant la distribution de probabilité obtenue en tirant uniformément et indépendamment chaque agent). Cela nous a garanti que les situations que nous voulions analyser ne sont pas négligeables.
 
 \begin{theorem}
 \label{convergence-non-standard}
-Considérons $n$ agents placés sur le cercle de rayon 1 et soit $d$ la distance d'influence. La position de l'agent $i$ est $x_i = r_i + b_i$ où $r_i = \frac{i}{n} 2 \pi$ et $b_i \in [-\epsilon, +\epsilon]$. Alors la convergence sera non standard pour un $\epsilon$ suffisamment petit. 
+Considérons $n$ agents placés sur le cercle de rayon 1 et soit $d$ la distance d'influence. La position de l'agent $i$ est $x_i = r_i + b_i$ où $r_i = \frac{i}{n} 2 \pi$ et $b_i \in [-\epsilon, +\epsilon]$. Alors la convergence sera non standard pour un $\epsilon$ suffisamment petit.
 \end{theorem}
 
 Nous avons supposé que le bruit n'arrive pas à changer les relations d'influence entre les agents. On peut formaliser cela comme une contrainte sur $\epsilon$ : pour aucun $k$ on peut avoir $\frac{k}{n} 2 \pi - \epsilon < d < \frac{k}{n} 2 \pi + \epsilon$.
@@ -157,4 +157,4 @@ Nous avons ensuite essayé une version où les valeurs des opinions sont sur un 
 Enfin nous avons rajouté quelques petites choses, comme le choix des couleurs pour afficher les opinions, le choix des opinions au départ (aléatoire, uniformément réparti, tous au centre, ...) ou encore l'essai d'une mesure de 'chaos' qui est la somme pour toutes les personnes de la somme des coefficient d'influence.
 
 
-\end{document}          
+\end{document}
