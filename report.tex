@@ -8,6 +8,7 @@
 \usepackage{amsthm}
 \usepackage{xfrac}
 \usepackage{graphicx}
+\usepackage{float}
 
 \usepackage[T1]{fontenc}
 \usepackage{type1cm}
@@ -128,13 +129,46 @@ Nous avons fait un programme pour calculer puis afficher les opinions au cours d
 \begin{enumerate}
 \item Créneau : une personne écoute les personnes d'opinion qui diffère de moins de $D \in \mathbb{R}$, toutes avec le même coeff, et pas les autres. Autrement dit la fonction qui donne le coefficient de prise en compte d'opinion en fonction de la distance d est un créneau de largeur 2D.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCreneau_inverse.png}
+\end{center}
+\caption{Créneau}
+\label{sim_creneau}
+\end{figure}
+
 \item Inverse : la fonction $\operatorname{coeff}(d)$ est $\sfrac{1}{(1+d)}$.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatInverse_inverse.png}
+\end{center}
+\caption{Inverse}
+\label{sim_inverse}
+\end{figure}
+
 \item Inverse au carré : la fonction $\operatorname{coeff}(d)$ est $\sfrac{1}{(1+d^2)}$.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCarre_inverse.png}
+\end{center}
+\caption{Inverse au carré}
+\label{sim_carre}
+\end{figure}
 
 \item Inverse au carré bis : la fonction $\operatorname{coeff}(d)$ est $\min(\sfrac{1}{d^2}, D)$ et $D$ en $d=0$.
 
 \item Gaussien : la fonction $\operatorname{coeff}(d)$ est une gaussienne de variance $D \in \mathbb{R}$.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatGaussien_inverse.png}
+\end{center}
+\caption{Gaussien}
+\label{sim_gaussien}
+\end{figure}
+
 \end{enumerate}
 
 Nous avons bien sûr fait varié $D$ et regardé les différences obtenues. Assez logiquement, plus $D$ est grand moins il y a d'opinions finales.
@@ -148,13 +182,85 @@ Certaines de ces fonctions faisaient converger très rapidement (ex : créneau v
 \item affichage logarithmique : l'abscisse est $\log(t)$, c'est à dire qu'une valeur au temps $t$ est affiché sur le pixel d'abscisse $\log(t)$.
 \end{enumerate}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCarreLog_inverse.png}
+\end{center}
+\caption{Inverse au carré avec affichage logarithmique}
+\label{sim_carre_log}
+\end{figure}
+
 Face à la rapidité de la convergence de certains modèles, nous avons implémenté l'inertie : plus cette inertie est importante, moins l'opinion de la personne change. C'est à dire que la personne prend en compte son opinion avec un coeff proportionnel à l'inertie. Cela permet de ralentir la convergence et d'obtenir des courbes plus jolies.
-Nous avons aussi essayé une version où l'inertie change selon les personnes.
+Nous avons aussi essayé une version où l'inertie change selon les personnes. On peut voir la différence entre ces deux résultats et les figures \ref{sim_creneau} et \ref{sim_inverse}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCreneauInertie_inverse.png}
+\end{center}
+\caption{Creneau avec inertie}
+\label{sim_creneau_inertie}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatInverseInertie_inverse.png}
+\end{center}
+\caption{Inverse avec inertie}
+\label{sim_inverse_inertie}
+\end{figure}
 
 Nous avons ensuite ajouté du bruit, ie une personne a une opinion qui monte ou descend aléatoirement (en plus du changement d'opinion dû aux autres personnes) à chaque unité de temps. Nous avons mis un bruit à peu près gaussien. Ainsi nous obtenons selon les modèles une ou plusieures opinions principales qui bougent légèrement, qui sont larges avec un gros bruit et fines avec un petit bruit. Celles-ci se rejoignent parfois. De plus avec un bruit suffisament fort certaines personnes sortent des idées principales. Avec un bruit très fort on observe plus rien; et entre les deux on observe des idées principales qui bougent beaucoup, se rejoignent, se divisent, des trous d'opinions qui se créent puis disparaisent : c'est assez proche de la réalité.
 Nous avons rencontré un problème dû à la fonction \texttt{rand()} en c : en utilisant beaucoup cette fonction, nous obtenous de l'aléatoire qui se répète, et du coup des opinions de personnes qui montent et descendent de la même manière.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCreneauBruit_inverse.png}
+\end{center}
+\caption{Creneau avec bruit}
+\label{sim_creneau_bruit}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatInverseBruit_inverse.png}
+\end{center}
+\caption{Inverse avec bruit}
+\label{sim_inverse_bruit}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCarreBruit3_inverse.png}
+\end{center}
+\caption{Inverse au carré avec un peu de bruit}
+\label{sim_carre_bruit_3}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCarreBruit20_inverse.png}
+\end{center}
+\caption{Inverse au carré avec beaucoup de bruit}
+\label{sim_carre_bruit_20}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatGaussienBruit_inverse.png}
+\end{center}
+\caption{Gaussien avec bruit}
+\label{sim_gaussien_bruit}
+\end{figure}
+
 Nous avons ensuite essayé une version où les valeurs des opinions sont sur un cercle, cela n'a pas changé grand chose.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=270pt]{resultatCyclique_inverse.png}
+\end{center}
+\caption{Creneau avec bruit et valeurs cycliques}
+\label{sim_cyclique}
+\end{figure}
 
 Enfin nous avons rajouté quelques petites choses, comme le choix des couleurs pour afficher les opinions, le choix des opinions au départ (aléatoire, uniformément réparti, tous au centre, ...) ou encore l'essai d'une mesure de 'chaos' qui est la somme pour toutes les personnes de la somme des coefficient d'influence.
 
